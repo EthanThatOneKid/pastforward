@@ -1,0 +1,183 @@
+:root {
+  --primary-color: #000;
+  --secondary-color: #fff;
+  --primary-response-color: rgba(80, 80, 80, 0.8);
+  --secondary-response-color: rgba(240, 240, 240, 0.9);
+  --primary-prompt-color: rgba(50, 50, 50, 0.8);
+  --secondary-prompt-color: rgba(200, 200, 200, 0.8);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
+  font-family: sans-serif;
+}
+
+::selection {
+  color: var(--secondary-color);
+  background-color: var(--primary-color);
+}
+
+h1 {
+  color: var(--primary-color);
+}
+
+p {
+  color: var(--primary-color);
+  line-height: 1.6; /* Improve readability */
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: var(--secondary-color);
+  color: var(--primary-color);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-color: #fff;
+    --secondary-color: #000;
+    --primary-response-color: rgba(240, 240, 240, 0.9);
+    --secondary-response-color: rgba(80, 80, 80, 0.8);
+    --primary-prompt-color: rgba(200, 200, 200, 0.8);
+    --secondary-prompt-color: rgba(50, 50, 50, 0.8);
+  }
+}
+
+/* Ensure the map takes up full screen */
+#map {
+  height: 93vh;
+  width: 100%;
+  z-index: 10;
+}
+
+/* Slider Panel */
+.slider {
+  position: fixed;
+  top: 50px; /* Below the navbar */
+  right: -100%; /* Initially hidden */
+  width: 100%;
+  height: calc(100vh - 50px); /* Full height minus navbar */
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 20px;
+  transition: right 0.5s ease-in-out;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slider h2 {
+  margin-bottom: 10px;
+}
+
+.slider p {
+  font-size: 16px;
+}
+
+#location-img {
+  width: 300px;
+  height: 300px;
+}
+
+/* Close Button */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: red;
+}
+
+/* Show the slider */
+.slider.active {
+  right: 0;
+}
+
+.response-container {
+  width: 90vw;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px;
+}
+
+.response-box {
+  background-color: rgba(80, 80, 80, 0.8);
+  align-self: flex-end;
+  text-align: right;
+}
+
+.prompt-box {
+  background-color: rgba(50, 50, 50, 0.8);
+  align-self: flex-start;
+  text-align: left;
+}
+
+.response-box,
+.prompt-box {
+  max-width: 60%;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* Input Box */
+.input-container {
+  display: flex;
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  backdrop-filter: blur(5px);
+  width: 60%;
+}
+
+.input-container input {
+  flex-grow: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+}
+
+.input-container button {
+  margin-left: 10px;
+  padding: 10px 15px;
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.input-container button:hover {
+  background: var(--secondary-prompt-color);
+}
