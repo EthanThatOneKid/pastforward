@@ -42,7 +42,8 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
+  padding: 0 20px;
+  height: 9vh;
   background: var(--secondary-color);
   color: var(--primary-color);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -66,7 +67,7 @@ a {
 
 /* Ensure the map takes up full screen */
 #map {
-  height: 93vh;
+  height: 91vh;
   width: 100%;
   z-index: 10;
 }

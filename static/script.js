@@ -1,6 +1,7 @@
+let leafletMap;
+
 document.addEventListener("DOMContentLoaded", function () {
   setupSlider();
-  setupLeaflet();
   navigator.geolocation.getCurrentPosition(handleCurrentPosition);
 });
 
@@ -26,29 +27,41 @@ function setupSlider() {
   });
 }
 
-function setupLeaflet() {
-  const leafletMap = L.map("map").setView([40.7128, -74.006], 12);
+function setupLeaflet(coords, zoom = 12) {
+  leafletMap = L.map("map").setView([coords.latitude, coords.longitude], zoom);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "&copy; OpenStreetMap contributors",
   }).addTo(leafletMap);
 }
 
 async function handleCurrentPosition(position /*: GeolocationPosition*/) {
-  console.log({ position });
+  setupLeaflet(position.coords);
 
-  const data = await fetch(
-    `/places?coordinates=${position.coords.latitude},${position.coords.longitude}`
-  ).then((response) => response.json());
-
-  console.log({ data });
-
-  locations.forEach((location) => {
-    const marker = L.marker(location.coords).addTo(leafletMap);
+  const places = await fetchPastforwardPlaces(position.coords);
+  for (const place of places) {
+    const latLng = [place.latitude, place.longitude];
+    const marker = L.marker(latLng).addTo(leafletMap);
     const popup = L.popup()
-      .setLatLng(location.coords)
-      .setContent(`<b>${location.name}</b><br>${location.description}`)
+      .setLatLng(latLng)
+      .setContent(`<b>${place.name}</b><br>${place.address}`)
       .openOn(leafletMap);
 
     marker.bindPopup(popup);
+  }
+
+  leafletMap.on("zoomend", () => {
+    leafletMap.invalidateSize();
   });
+
+  leafletMap.on("moveend", () => {
+    leafletMap.invalidateSize();
+  });
+
+  leafletMap.invalidateSize();
+}
+
+function fetchPastforwardPlaces(coords) {
+  return fetch(
+    `/places?coordinates=${coords.latitude},${coords.longitude}`
+  ).then((response) => response.json());
 }
