@@ -1,13 +1,16 @@
 import os
+from functools import reduce
 import modal
 import fastapi
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import StreamingResponse
 import googlemaps
 import pastforward
 
 static_dir = "static"
 static_dir_remote = f"/root/{static_dir}"
 gmp_api_key = "GMP_API_KEY"
+
 
 image = (
     modal.Image.debian_slim()
@@ -27,7 +30,28 @@ def api():
     @fastapi_app.get("/place")
     async def place(_request: fastapi.Request, coordinates: str):
         reverse_geocode_result = gmaps.reverse_geocode(parse_coordinates(coordinates))
-        return [pastforward.from_gmp_place(x) for x in reverse_geocode_result]
+        return reduce(
+            lambda accumulator, current: (
+                accumulator
+                + (
+                    []
+                    if current["place_id"] is None
+                    else [pastforward.from_gmp_place(gmaps.place(current["place_id"]))]
+                )
+            ),
+            reverse_geocode_result,
+            [],
+        )
+
+    @fastapi_app.get("/places-photo")
+    async def places_photo(_request: fastapi.Request, ref: str):
+        return StreamingResponse(
+            gmaps.places_photo(
+                ref,
+                {"maxwidth": 400},
+            ),
+            media_type="image/jpeg",
+        )
 
     fastapi_app.mount(
         "/",
