@@ -1,6 +1,6 @@
 let leafletMap;
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   setupSlider();
   navigator.geolocation.getCurrentPosition(handleCurrentPosition);
 });
@@ -27,7 +27,7 @@ function setupSlider() {
   });
 }
 
-function setupLeaflet(coords, zoom = 12) {
+function setupLeaflet(coords, zoom = 17) {
   leafletMap = L.map("map").setView([coords.latitude, coords.longitude], zoom);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "&copy; OpenStreetMap contributors",
@@ -36,14 +36,17 @@ function setupLeaflet(coords, zoom = 12) {
 
 async function handleCurrentPosition(position /*: GeolocationPosition*/) {
   setupLeaflet(position.coords);
+  await setupPastforwardPlaces(position.coords);
+}
 
-  const places = await fetchPastforwardPlaces(position.coords);
+async function setupPastforwardPlaces(coords) {
+  const places = await fetchPastforwardPlaces(coords);
   for (const place of places) {
     const latLng = [place.latitude, place.longitude];
     const marker = L.marker(latLng).addTo(leafletMap);
     const popup = L.popup()
       .setLatLng(latLng)
-      .setContent(`<b>${place.name}</b><br>${place.address}`)
+      .setContent(renderPopupContent(place))
       .openOn(leafletMap);
 
     marker.bindPopup(popup);
@@ -64,4 +67,8 @@ function fetchPastforwardPlaces(coords) {
   return fetch(
     `/places?coordinates=${coords.latitude},${coords.longitude}`
   ).then((response) => response.json());
+}
+
+function renderPopupContent(place) {
+  return `<b>${place.name}</b><br>${place.address}`;
 }

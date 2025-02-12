@@ -5,7 +5,7 @@
 Install the dependencies.
 
 ```sh
-python -m pip install modal googlemaps geopy
+python -m pip install modal googlemaps geopy toolhouse groq
 ```
 
 Set up the [Modal](https://modal.com/) project.
@@ -23,6 +23,8 @@ python -m modal serve main.py
 Retrieve and store your environment variables:
 
 - [Google Maps Platform](https://console.cloud.google.com/google/maps-apis/onboard;flow=gmp-api-key-flow)
+- [Groq](https://console.groq.com/keys)
+- [Toolhouse](https://app.toolhouse.ai/) (In your Toolhouse dashboard, click "Install" next to Code Interpreter ([direct link](https://app.toolhouse.ai/store/code_interpreter))).
 
 ## Deployment
 
@@ -39,4 +41,4 @@ Add the Modal Token to GitHub Secrets:
 - Click on New repository secret.
 - Name the secret `MODAL_TOKEN` and paste the Modal token you generated.
 
-Make a change to the main branch of your repository to trigger a deployment.
+Push a commit to the main branch of your GitHub repository to trigger a deployment.
