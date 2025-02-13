@@ -1,4 +1,4 @@
-# Fastforward
+# Pastforward
 
 ## Develop
 
@@ -25,6 +25,8 @@ Retrieve and store your environment variables:
 - [Google Maps Platform](https://console.cloud.google.com/google/maps-apis/onboard;flow=gmp-api-key-flow)
 
 ## Deployment
+
+[![Deploy to Modal](https://github.com/EthanThatOneKid/pastforward/actions/workflows/deploy.yaml/badge.svg)](https://github.com/EthanThatOneKid/pastforward/actions/workflows/deploy.yaml)
 
 Retrieve your Modal API token:
 
