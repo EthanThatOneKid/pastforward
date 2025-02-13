@@ -5,7 +5,7 @@
 Install the dependencies.
 
 ```sh
-python -m pip install modal googlemaps geopy toolhouse groq
+python -m pip install modal googlemaps geopy
 ```
 
 Set up the [Modal](https://modal.com/) project.
@@ -23,8 +23,6 @@ python -m modal serve main.py
 Retrieve and store your environment variables:
 
 - [Google Maps Platform](https://console.cloud.google.com/google/maps-apis/onboard;flow=gmp-api-key-flow)
-- [Groq](https://console.groq.com/keys)
-- [Toolhouse](https://app.toolhouse.ai/) (In your Toolhouse dashboard, click "Install" next to Code Interpreter ([direct link](https://app.toolhouse.ai/store/code_interpreter))).
 
 ## Deployment
 
