@@ -26,7 +26,7 @@ def generate_historical_significance(place: pastforward.PastforwardPlace) -> str
     return f"{place.name} is historically significant" if random.random() < 0.5 else ""
 
 
-@app.function(secrets=[modal.Secret.from_dotenv()])
+@app.function(secrets=[modal.Secret.from_name(gmp_api_key)])
 @modal.asgi_app()
 def api():
     fastapi_app = fastapi.FastAPI()
