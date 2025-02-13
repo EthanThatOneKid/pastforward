@@ -23,5 +23,5 @@ jobs:
       - name: Deploy to Modal
         run: python -m modal deploy main.py --name pastforward
         env:
-          MODAL_TOKEN: ${{ secrets.MODAL_TOKEN }}
-          MODAL_ACCOUNT: ${{ secrets.MODAL_ACCOUNT }}
+          MODAL_TOKEN_ID: ${{ secrets.MODAL_TOKEN_ID }}
+          MODAL_TOKEN_SECRET: ${{ secrets.MODAL_TOKEN_SECRET }}

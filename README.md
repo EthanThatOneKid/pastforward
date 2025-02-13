@@ -37,6 +37,7 @@ Add the Modal Token to GitHub Secrets:
 - Navigate to your GitHub repository.
 - Go to Settings > Secrets and variables > Actions.
 - Click on New repository secret.
-- Name the secret `MODAL_TOKEN` and paste the Modal token you generated.
+- Name the secret `MODAL_TOKEN_ID` and paste the Modal token ID you generated.
+- Name the secret `MODAL_TOKEN_SECRET` and paste the Modal token secret you generated.
 
 Push a commit to the main branch of your GitHub repository to trigger a deployment.
