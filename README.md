@@ -5,7 +5,7 @@
 Install the dependencies.
 
 ```sh
-python -m pip install modal googlemaps geopy
+python -m pip install -r requirements.txt
 ```
 
 Set up the [Modal](https://modal.com/) project.
