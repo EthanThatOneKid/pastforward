@@ -28,7 +28,7 @@ def generate_historical_significance(place: pastforward.PastforwardPlace) -> str
 
 @app.function(secrets=[modal.Secret.from_name(gmp_api_key)])
 @modal.asgi_app()
-def api():
+def main():
     fastapi_app = fastapi.FastAPI()
     gmaps = googlemaps.Client(key=os.environ[gmp_api_key])
 
@@ -49,7 +49,7 @@ def api():
 
             return results + [place]
 
-        # TODO: Filter places by historical significance via Groq.
+        # TODO: Filter places by historical significance via Groq and Toolhouse.
         return reduce(reduce_places, gmp_places_nearby_results, [])
 
     @fastapi_app.get("/places/{ref}.jpg")
